@@ -7,14 +7,21 @@ import java.util.Objects;
 public class CrudCategory {
 
     private List<Category> categories = new ArrayList<>(List.of(
-            new Category(1, "Electrónica", "electronica", 1),
+            new Category(1, "Electronica", "electronica", 1),
             new Category(2, "Ropa", "ropa", 1),
             new Category(3, "Alimentos", "alimentos", 1),
             new Category(4, "Deportes", "deportes", 1),
             new Category(5, "Hogar", "hogar", 1),
             new Category(6, "Libros", "libros", 0),
             new Category(7, "Juguetes", "juguetes", 1),
-            new Category(8, "Belleza", "belleza", 0)));;
+            new Category(8, "Belleza", "belleza", 0)));
+
+
+
+
+    public CrudCategory (){
+
+            }
 
     public CrudCategory(List<Category> categories) {
         this.categories = categories != null ? categories : new ArrayList<>();
