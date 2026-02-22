@@ -9,8 +9,7 @@ public class CrlProduct {
     private CrudCategory crudCategory = new CrudCategory();
 
     @GetMapping("/category")
-    public Category[] getCategories() {
-
+    public Category[] getCategories(){
         return crudCategory.getCategories();
     }
 }
