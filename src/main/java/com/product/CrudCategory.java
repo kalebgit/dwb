@@ -1,5 +1,7 @@
 package com.product;
 
+import com.product.api.entity.Category;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -76,7 +78,7 @@ public class CrudCategory {
             boolean found = false;
             for (Category c : categories) {
                 if (c != null && id.equals(c.getCategory_id())) {
-                    c.status = 0;
+                    c.setStatus(0);
                     found = true;
                 }
             }

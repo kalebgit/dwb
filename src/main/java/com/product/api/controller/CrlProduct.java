@@ -1,5 +1,7 @@
-package com.product;
+package com.product.api.controller;
 
+import com.product.CrudCategory;
+import com.product.api.entity.Category;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
