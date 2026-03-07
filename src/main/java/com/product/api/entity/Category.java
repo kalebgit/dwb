@@ -1,16 +1,29 @@
-package com.product;
+package com.product.api.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "category")
 public class Category {
+    @Id
     Integer category_id;
+
     String category;
     String tag;
     Integer status;
+
 
     public Category(Integer category_id, String category, String tag, Integer status) {
         this.category_id = category_id;
         this.category = category;
         this.tag = tag;
         this.status = status;
+    }
+
+    public Category() {
+
     }
 
     public Integer getCategory_id() {
