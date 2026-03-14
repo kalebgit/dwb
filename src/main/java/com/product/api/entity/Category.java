@@ -1,17 +1,27 @@
 package com.product.api.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "category")
 public class Category {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="category_id")
+    @JsonProperty("region_id")
     Integer category_id;
 
+    @Column(name = "category")
+    @JsonProperty("category")
     String category;
+
+    @Column(name = "tag")
+    @JsonProperty("tag")
     String tag;
+
+    @Column(name = "status")
+    @JsonProperty("status")
     Integer status;
 
 
