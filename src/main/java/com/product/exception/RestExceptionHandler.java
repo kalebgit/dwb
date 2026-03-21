@@ -33,4 +33,5 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
       response.setPath(((ServletWebRequest)request).getRequest().getRequestURI().toString());
       return new ResponseEntity<>(response, response.getError());
    }
+
 }

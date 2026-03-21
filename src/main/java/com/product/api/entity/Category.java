@@ -9,7 +9,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="category_id")
-    @JsonProperty("region_id")
+    @JsonProperty("category_id")
     Integer category_id;
 
     @Column(name = "category")
