@@ -8,94 +8,90 @@ import com.product.exception.DBAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SvcCategoryImp implements SvcCategory{
+public class SvcCategoryImp implements SvcCategory {
     @Autowired
     RepoCategory repoCategory;
 
     @Override
-    public ResponseEntity<List<Category>> getCategories() {
+    public List<Category> findAll() {
         try {
-            return new ResponseEntity<>(repoCategory.getCategories(), HttpStatus.OK);
+            return repoCategory.getCategories();
         } catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
     }
 
     @Override
-    public ResponseEntity<List<Category>> getActiveCategories() {
-        return new ResponseEntity<>(repoCategory.getCategoriesByStatus(1), HttpStatus.OK);
+    public List<Category> findActive() {
+        try {
+            return repoCategory.getCategoriesByStatus(1);
+        } catch (DataAccessException e) {
+            throw new DBAccessException(e);
+        }
     }
 
     @Override
-    public ResponseEntity<?> create(DtoCategoryIn in) {
-        if(repoCategory.existsCategoryByCategory(in.getCategory())){
-           throw new ApiException(HttpStatus.CONFLICT, "Ya existe un categoria con ese nombre");
-        }else if (repoCategory.existsCategoryByTag(in.getTag())){
-            throw new ApiException(HttpStatus.CONFLICT, "Ya existe una categoria con ese tag");
+    public void create(DtoCategoryIn in) {
+        if (repoCategory.existsCategoryByCategory(in.getCategory())) {
+            throw new ApiException(HttpStatus.CONFLICT, "Ya existe una categoría con ese nombre");
+        } else if (repoCategory.existsCategoryByTag(in.getTag())) {
+            throw new ApiException(HttpStatus.CONFLICT, "Ya existe una categoría con ese tag");
         }
 
         try {
             repoCategory.create(in.getCategory(), in.getTag());
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch (DataAccessException e ){
+        } catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
-
     }
 
     @Override
-    public ResponseEntity<?> update(DtoCategoryIn in, Integer id) {
-
+    public void update(DtoCategoryIn in, Integer id) {
         validateId(id);
 
-        if(repoCategory.existsCategoryByCategory(in.getCategory())){
-            throw new ApiException(HttpStatus.CONFLICT, "Ya existe un categoria con ese nombre, ingresa otros valores para actualizar");
-        }else if (repoCategory.existsCategoryByTag(in.getTag())){
-            throw new ApiException(HttpStatus.CONFLICT, "Ya existe un categoria con ese tag, ingresa otros valores para actualizar");
+        if (repoCategory.existsCategoryByCategory(in.getCategory())) {
+            throw new ApiException(HttpStatus.CONFLICT, "Ya existe una categoría con ese nombre");
+        } else if (repoCategory.existsCategoryByTag(in.getTag())) {
+            throw new ApiException(HttpStatus.CONFLICT, "Ya existe una categoría con ese tag");
         }
 
         try {
             repoCategory.update(in.getCategory(), in.getTag(), id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (DataAccessException e ){
+        } catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
     }
 
     @Override
-    public ResponseEntity<Object> enable(Integer id) {
+    public void enable(Integer id) {
         validateId(id);
 
         try {
             repoCategory.updateStatus(id, 1);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (DataAccessException e ){
+        } catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
     }
 
     @Override
-    public ResponseEntity<Object> disable(Integer id) {
+    public void disable(Integer id) {
         validateId(id);
 
         try {
             repoCategory.updateStatus(id, 0);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (DataAccessException e ){
+        } catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
     }
 
-
-    public void validateId(Integer id){
-        if(repoCategory.findById(id).isEmpty()){
-            throw new ApiException(HttpStatus.NOT_FOUND, "El id de la category no existe");
+    private void validateId(Integer id) {
+        if (repoCategory.findById(id).isEmpty()) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "No existe una categoría con ese id");
         }
     }
 }
