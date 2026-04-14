@@ -1,6 +1,6 @@
 package com.product.api.controller;
 
-import com.product.api.dto.DtoCategoryIn;
+import com.product.api.dto.in.DtoCategoryIn;
 import com.product.api.entity.Category;
 import com.product.api.service.SvcCategoryImp;
 import jakarta.validation.Valid;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/category")
-public class CrlCategory {
+public class CtrlCategory {
 
     @Autowired
     SvcCategoryImp svcCategory;
