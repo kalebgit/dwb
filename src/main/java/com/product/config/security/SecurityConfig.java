@@ -27,17 +27,13 @@ public class SecurityConfig {
                         auth -> auth
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/info", "/actuator/health").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/region", "/region/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/region", "/region/**").hasAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/region", "/region/**").hasAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.PATCH, "/region", "/region/**").hasAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/customer").hasAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/customer/{id}").hasAnyAuthority("ADMIN", "CUSTOMER")
-                                .requestMatchers(HttpMethod.POST, "/customer").hasAnyAuthority("ADMIN", "CUSTOMER")
-                                .requestMatchers(HttpMethod.PUT, "/customer/{id}").hasAnyAuthority("ADMIN", "CUSTOMER")
-                                .requestMatchers(HttpMethod.PATCH, "/customer/**").hasAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/customer-image").hasAnyAuthority("ADMIN", "CUSTOMER")
-                                .anyRequest().authenticated()
+                                // CUSTOMER y ADMIN: categorías activas
+                                .requestMatchers(HttpMethod.GET, "/category/active").hasAnyAuthority("ADMIN", "CUSTOMER")
+                                // CUSTOMER y ADMIN: detalle de producto e imágenes
+                                .requestMatchers(HttpMethod.GET, "/product/{id}").hasAnyAuthority("ADMIN", "CUSTOMER")
+                                .requestMatchers(HttpMethod.GET, "/product/{id}/image").hasAnyAuthority("ADMIN", "CUSTOMER")
+                                // ADMIN: todo lo demás
+                                .anyRequest().hasAuthority("ADMIN")
                 )
                 .cors(cors -> cors.configurationSource(corsConfig))
                 .httpBasic(Customizer.withDefaults())
