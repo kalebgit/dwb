@@ -20,8 +20,10 @@ import com.product.api.dto.out.DtoProductListOut;
 import com.product.api.dto.out.DtoProductOut;
 import com.product.api.service.SvcProduct;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Product", description = "Administración de productos")
 @RestController
 @RequestMapping("/product")
 public class CtrlProduct {

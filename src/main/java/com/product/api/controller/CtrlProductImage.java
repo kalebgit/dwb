@@ -3,6 +3,7 @@ package com.product.api.controller;
 import com.product.api.dto.in.DtoProductImageIn;
 import com.product.api.entity.ProductImage;
 import com.product.api.service.SvcProductImageImp;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Product Image", description = "Carga de imágenes de productos")
 @RestController
 @RequestMapping("/product/{id}/image")
 public class CtrlProductImage {
